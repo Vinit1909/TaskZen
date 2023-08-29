@@ -1,0 +1,140 @@
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous"
+/>
+
+<style>
+       body {
+         background-color: #FFFCF9;
+         margin: 0 20px;
+       }
+
+       input {
+         width: 100%;
+         padding: 12px 12px;
+         margin: 5px 0;
+         box-sizing: border-box;
+       }
+
+       input::placeholder {
+         color: #d3d3d3;
+       }
+
+       .submit {
+         background-color: #004e98;
+       }
+
+       .center-column {
+         width: 1000px;
+         margin: 20px auto;
+         padding: 20px;
+         background-color: #edf7f6;
+         border-radius: 15px;
+         box-shadow: 6px 2px 30px 0px rgba(0, 0, 0, 0.75);
+       }
+
+       .item-row {
+      display: flex;
+         align-items: center;
+         justify-content: space-between;
+         background-color: #fff;
+         margin: 10px;
+         padding: 20px;
+         border-radius: 15px;
+         color: #black
+         font-size: 16px;
+         box-shadow: 0px -1px 10px -4px rgba(0, 0, 0, 0.75);
+       }
+
+       .item-row-buttons {
+     display: flex;
+     gap: 10px;
+      }
+
+   .btn-submit {
+   	color: black;
+   	  background-color: #B1EDE8;
+   	  border-radius: 10px;
+       padding: 10px;
+   	}
+
+  .btn-submit:hover {
+  	background-color: #2CA6A4;
+
+  }
+
+     .btn-info {
+       color: black;
+         background-color: #fff;
+         border-radius: 10px;
+       }
+
+       .btn-danger {
+      color: black;
+         background-color: #fff;
+         border-color: #e59400;
+         border-radius: 10px;
+       }
+
+    .name{
+    	text-align: center;
+    }
+
+    * Media Queries */
+  @media (max-width: 1200px) {
+    .center-column {
+      width: 90%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .center-column {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .item-row {
+      padding: 20px;
+    }
+  }
+</style>
+
+<body>
+  <section id="header">
+    <div class="name">
+      <header>
+        <h1>Task Zen</h1>
+        <p>Achieve More, Stress Less ✅</p>
+      </header>
+    </div>
+  </section>
+
+  <div class="center-column">
+    <form method="POST" action="/">
+      {% csrf_token %} {{form.title}}
+      <input class="btn btn-submit" type="submit" name="Create Task" />
+    </form>
+
+    <div class="todo-list">
+      {% for task in tasks %}
+      <div class="item-row">
+        {% if task.complete == True %}
+        <strike>{{task}}</strike>
+        {% else %}
+        <span>{{task}}</span>
+        {% endif %}
+        <div class="item-row-buttons">
+          <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}"
+            >Update</a
+          >
+          <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}"
+            >Delete</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
